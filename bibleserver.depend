@@ -1,0 +1,56 @@
+# depslib dependency file v1.0
+1474222148 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httprequest/httprequest.cpp
+	"httprequest.h"
+	"../httpserver/httpserver.h"
+	"../httpresponse/httpresponse.h"
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<errno.h>
+	<string.h>
+	<sys/types.h>
+	<time.h>
+	<string.h>
+
+1474198272 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse/httpresponse.cpp
+
+1474222623 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httpsession/httpsession.cpp
+	"httpsession.h"
+	"../httpserver/httpserver.h"
+	"../httprequest/httprequest.h"
+
+1474208422 source:/home/richard/projects/bibleserver/bibleserver/main.cpp
+	"bibleserver/bibleserver/bibleserver.h"
+
+1474217996 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/bibleserver/bibleserver.cpp
+	"bibleserver.h"
+	"../httpserver/httpserver.h"
+	<thread>
+
+1474199730 /home/richard/projects/bibleserver/bibleserver/bibleserver/bibleserver/bibleserver.h
+
+1474218179 /home/richard/projects/bibleserver/bibleserver/bibleserver/httpserver/httpserver.h
+
+1474218781 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httpserver/httpserver.cpp
+	"httpserver.h"
+	"../httpsession/httpsession.h"
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<errno.h>
+	<string.h>
+	<sys/types.h>
+	<time.h>
+
+1474220401 /home/richard/projects/bibleserver/bibleserver/bibleserver/httpsession/httpsession.h
+
+1474221637 /home/richard/projects/bibleserver/bibleserver/bibleserver/httprequest/httprequest.h
+
+1474220536 /home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse/httpresponse.h
+

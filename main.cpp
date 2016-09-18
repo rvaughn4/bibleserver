@@ -1,9 +1,9 @@
-#include <iostream>
 
-using namespace std;
+#include "bibleserver/bibleserver/bibleserver.h"
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    bibleserver::bibleserver b;
+    b.runUntilDone();
     return 0;
 }
