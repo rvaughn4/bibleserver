@@ -114,10 +114,7 @@ namespace bibleserver
         for( i = 0; i < httpserver_MAX_sockets; i++ )
         {
             if( this->skts[ i ] == s )
-            {
                 this->skts[ i ] = 0;
-                return;
-            }
         }
     }
 
@@ -201,30 +198,21 @@ namespace bibleserver
         for( i = 0; i < httpserver_MAX_sockets; i++ )
             this->rdy_skts[ i ] = 0;
 
-        for( hs = i = 0; i < 30; i++ )
+        hs = 0;
+        for( i = 0; i < httpserver_MAX_sockets; i++ )
         {
-            this->last_sel_num++;
-            if( this->last_sel_num >= httpserver_MAX_sockets )
-                this->last_sel_num = 0;
-            for( j = 0; j < 30 && this->skts[ this->last_sel_num ] <= 0; j++ )
-            {
-                this->last_sel_num++;
-                if( this->last_sel_num >= httpserver_MAX_sockets )
-                    this->last_sel_num = 0;
-            }
-
-            s = this->skts[ this->last_sel_num ];
-            if( s > 0 )
-                FD_SET( s, &fd );
+            s = this->skts[ i ];
+            if( s <= 0 )
+                continue;
             if( s >= hs )
                 hs = s + 1;
+            FD_SET( s, &fd );
         }
-
         if( hs <= 0 )
             return 0;
 
         ts.tv_sec = 0;
-        ts.tv_usec = 1000 * 30;
+        ts.tv_usec = 0;
         hs = select( hs, &fd, 0, 0, &ts );
 
         if( hs <= 0 )

@@ -2,6 +2,7 @@
 #include "httprequest.h"
 #include "../httpserver/httpserver.h"
 #include "../httpresponse/httpresponse.h"
+#include "../httpresponse_favicon/httpresponse_favicon.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -22,6 +23,7 @@ namespace bibleserver
     //ctor
     httprequest::httprequest( int skt, httpserver *svr )
     {
+        this->resp = 0;
         this->skt = skt;
         this->svr = svr;
         this->buff = 0;
@@ -41,6 +43,8 @@ namespace bibleserver
     //dtor
     httprequest::~httprequest( void )
     {
+        if( this->resp )
+            delete this->resp;
         if( this->buff )
             delete[] this->buff;
     }
@@ -49,8 +53,11 @@ namespace bibleserver
     bool httprequest::run( void )
     {
         char dbuff[ 1024 ];
-        int r, szr, i;
-        unsigned int szn;
+        int r, szrem;
+        unsigned int szn, i;
+
+        if( this->resp )
+            return this->resp->run();
 
         if( this->svr->testSelSocket( this->skt ) )
         {
@@ -61,7 +68,7 @@ namespace bibleserver
             if( !this->resizeBuff( r ) )
                 return 0;
             szrem = this->sz - this->cursor;
-            r = recv( this->skt, this->buff[ this->cursor ], szrem, 0 );
+            r = recv( this->skt, &this->buff[ this->cursor ], szrem, 0 );
             if( r <= 0 || r > szrem )
                 return 0;
 
@@ -76,23 +83,37 @@ namespace bibleserver
                 }
                 else
                 {
-                    if( this->buff[ i ] == 10 )
+                    if( this->buff[ i ] == 32 )
                     {
                         if( !this->pos_path_end )
                         {
                             this->pos_path = this->pos_method_end + 1;
                             this->pos_path_end = i;
                         }
+                    }
 
+                    if( this->buff[ i ] == 10 )
+                    {
                         this->last_pos_n = this->pos_n;
                         this->pos_n = i;
+
+                        //handle method
+                        if( this->buff[ this->pos_method ] != 71 && this->buff[ this->pos_method ] != 103 )
+                            return 0;
+                            //std::cout << this->buff << "\r\n";
+                        if( this->pos_n - this->last_pos_n <= 2 )
+                        {
+                            if( !this->resp && this->pathContains( "ico" ) )
+                                this->resp = new httpresponse_favicon( this, this->skt );
+                            if( !this->resp )
+                                this->resp = new httpresponse( this, this->skt );
+
+                        }
                     }
                 }
             }
 
         }
-
-
 
         return 1;
     }
@@ -124,6 +145,63 @@ namespace bibleserver
             delete[] ob;
 
         return 1;
+    }
+
+    //return method
+    char *httprequest::getMethodString( unsigned int *psz )
+    {
+        if( this->pos_method_end > this->sz )
+            this->pos_method_end = this->sz;
+        if( this->pos_method >= this->sz )
+            this->pos_method = 0;
+        *psz = this->pos_method_end - this->pos_method;
+        if( !this->buff )
+            return 0;
+        return &this->buff[ this->pos_method ];
+    }
+
+    //return file/path
+    char *httprequest::getPathString( unsigned int *psz )
+    {
+        if( this->pos_path_end > this->sz )
+            this->pos_path_end = this->sz;
+        if( this->pos_path >= this->sz )
+            this->pos_path = 0;
+        *psz = this->pos_path_end - this->pos_path;
+        if( !this->buff )
+            return 0;
+        return &this->buff[ this->pos_path ];
+    }
+
+    //search path for string
+    bool httprequest::pathContains( char *c, unsigned int sz )
+    {
+        unsigned int psz, i, j;
+        char *pth;
+
+        pth = this->getPathString( &psz );
+        if( !pth || !c )
+            return 0;
+
+        for( i = 0; i < psz; i++ )
+        {
+            if( pth[ i ] == c[ 0 ] )
+            {
+                for( j = 0; j < sz && i + j < psz && pth[ i + j ] == c[ j ]; j++ )
+                {
+                    if( j == sz - 1 )
+                        return 1;
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    //search path for string
+    bool httprequest::pathContains( const char *c )
+    {
+        return this->pathContains( (char *)c, strlen( c ) );
     }
 
 };

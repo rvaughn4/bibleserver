@@ -29,9 +29,22 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="bibleserver/bibleserver/bibleserver.cpp" />
+		<Unit filename="bibleserver/bibleserver/bibleserver.h" />
+		<Unit filename="bibleserver/httprequest/httprequest.cpp" />
+		<Unit filename="bibleserver/httprequest/httprequest.h" />
+		<Unit filename="bibleserver/httpresponse/httpresponse.cpp" />
+		<Unit filename="bibleserver/httpresponse/httpresponse.h" />
+		<Unit filename="bibleserver/httpresponse_favicon/httpresponse_favicon.cpp" />
+		<Unit filename="bibleserver/httpresponse_favicon/httpresponse_favicon.h" />
+		<Unit filename="bibleserver/httpserver/httpserver.cpp" />
+		<Unit filename="bibleserver/httpserver/httpserver.h" />
+		<Unit filename="bibleserver/httpsession/httpsession.cpp" />
+		<Unit filename="bibleserver/httpsession/httpsession.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
