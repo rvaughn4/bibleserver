@@ -2,7 +2,8 @@
 #include "httprequest.h"
 #include "../httpserver/httpserver.h"
 #include "../httpresponse/httpresponse.h"
-#include "../httpresponse_favicon/httpresponse_favicon.h"
+#include "../httpresponse_image/httpresponse_image.h"
+#include "../httpresponse_home/httpresponse_home.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -103,10 +104,20 @@ namespace bibleserver
                             //std::cout << this->buff << "\r\n";
                         if( this->pos_n - this->last_pos_n <= 2 )
                         {
-                            if( !this->resp && this->pathContains( "ico" ) )
-                                this->resp = new httpresponse_favicon( this, this->skt );
+                            if(
+                                !this->resp
+                            &&
+                            (
+                                this->pathContains( ".ico" ) ||
+                                this->pathContains( ".jpg" ) ||
+                                this->pathContains( ".png" ) ||
+                                this->pathContains( ".bmp" ) ||
+                                this->pathContains( ".gif" )
+                            )
+                            )
+                                this->resp = new httpresponse_image( this, this->skt );
                             if( !this->resp )
-                                this->resp = new httpresponse( this, this->skt );
+                                this->resp = new httpresponse_home( this, this->skt );
 
                         }
                     }

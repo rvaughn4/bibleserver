@@ -26,9 +26,11 @@ namespace bibleserver
         //send data
         void sendBytes( char *b, unsigned int sz );
         //send sucess
-        void sendSucess( char *b, unsigned int sz );
-        //send icon
-        void sendIcon( char *b, unsigned int sz );
+        void sendHTML( char *b, unsigned int sz );
+        //send sucess
+        void sendText( char *b, unsigned int sz );
+        //send data
+        void sendData( char *b, unsigned int sz );
         //send 404
         void send404( char *b, unsigned int sz );
         //send error 500

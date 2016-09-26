@@ -34,6 +34,7 @@ namespace bibleserver
     //run response
     bool httpresponse::run( void )
     {
+        this->sendText( (char *)"hi!", 3 );
         return 0;
     }
 
@@ -50,11 +51,12 @@ namespace bibleserver
     }
 
     //send sucess
-    void httpresponse::sendSucess( char *b, unsigned int sz )
+    void httpresponse::sendHTML( char *b, unsigned int sz )
     {
         this->sendBytes( "HTTP/1.0 200 OK\r\n" );
         this->sendBytes( "Content-Type: text/html; charset=UTF-8\r\n" );
         this->sendBytes( "Content-Encoding: UTF-8\r\n" );
+        this->sendBytes( "Content-Disposition: inline\r\n" );
 
         this->sendBytes( "Content-Length: " );
         this->sendInt( sz );
@@ -64,14 +66,32 @@ namespace bibleserver
         this->sendBytes( "\r\n" );
 
         this->sendBytes( b, sz );
-        this->sendBytes( "\r\n\r\n" );
+    }
+
+    //send sucess
+    void httpresponse::sendText( char *b, unsigned int sz )
+    {
+        this->sendBytes( "HTTP/1.0 200 OK\r\n" );
+        this->sendBytes( "Content-Type: text/plain\r\n" );
+        this->sendBytes( "Content-Encoding: UTF-8\r\n" );
+        this->sendBytes( "Content-Disposition: inline\r\n" );
+
+        this->sendBytes( "Content-Length: " );
+        this->sendInt( sz );
+        this->sendBytes( "\r\n" );
+
+        this->sendBytes( "Connection: close\r\n" );
+        this->sendBytes( "\r\n" );
+
+        this->sendBytes( b, sz );
     }
 
     //send icon
-    void httpresponse::sendIcon( char *b, unsigned int sz )
+    void httpresponse::sendData( char *b, unsigned int sz )
     {
         this->sendBytes( "HTTP/1.0 200 OK\r\n" );
-        this->sendBytes( "Content-Type: image/x-icon\r\n" );
+        this->sendBytes( "Content-Type: application/octet-stream\r\n" );
+        this->sendBytes( "Content-Disposition: inline\r\n" );
 
         this->sendBytes( "Content-Length: " );
         this->sendInt( sz );

@@ -1,5 +1,5 @@
 
-#include "httpresponse_favicon.h"
+#include "httpresponse_image.h"
 #include "../httprequest/httprequest.h"
 #include <fstream>
 #include <string>
@@ -8,27 +8,43 @@ namespace bibleserver
 {
 
     //ctor
-    httpresponse_favicon::httpresponse_favicon( httprequest *req, int skt ) : httpresponse( req, skt )
+    httpresponse_image::httpresponse_image( httprequest *req, int skt ) : httpresponse( req, skt )
     {
         this->req = req;
     }
 
     //dtor
-    httpresponse_favicon::~httpresponse_favicon( void )
+    httpresponse_image::~httpresponse_image( void )
     {
 
     }
 
     //run response
-    bool httpresponse_favicon::run( void )
+    bool httpresponse_image::run( void )
     {
         std::fstream f;
         std::string s;
         char *c;
-        unsigned int sz, fsz;
+        unsigned int sz, fsz, i;
 
         c = this->req->getPathString( &sz );
-        if( sz > 1 && *c == 47 )
+
+        for( i = 0; i < sz; i++ )
+        {
+            if
+            (
+             !(
+
+                ( c[ i ] >= 65 && c[ i ] <= 90 ) ||
+                ( c[ i ] >= 97 && c[ i ] <= 122 ) ||
+                ( c[ i ] >= 48 && c[ i ] <= 57 ) ||
+                ( c[ i ] == 46 )
+             )
+             )
+             c[ i ] = 48;
+        }
+
+        if( sz > 1 && *c == 48 )
             s.assign( c + 1, sz - 1 );
         else
             s.assign( c, sz );

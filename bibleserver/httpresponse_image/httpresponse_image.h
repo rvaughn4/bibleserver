@@ -1,21 +1,21 @@
 
-#ifndef httpresponse_home_h
-#define httpresponse_home_h
+#ifndef httpresponse_image_h
+#define httpresponse_image_h
 
 #include "../httpresponse/httpresponse.h"
 
 namespace bibleserver
 {
 
-    class httpresponse_home : public httpresponse
+    class httpresponse_image : public httpresponse
     {
 
     public:
 
         //ctor
-        httpresponse_home( httprequest *req, int skt );
+        httpresponse_image( httprequest *req, int skt );
         //dtor
-        virtual ~httpresponse_home( void );
+        virtual ~httpresponse_image( void );
         //run response
         virtual bool run( void );
 
@@ -30,5 +30,4 @@ namespace bibleserver
 };
 
 #endif // httpresponse_h
-
 

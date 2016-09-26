@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1474248017 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httprequest/httprequest.cpp
+1474853063 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httprequest/httprequest.cpp
 	"httprequest.h"
 	"../httpserver/httpserver.h"
 	"../httpresponse/httpresponse.h"
-	"../httpresponse_favicon/httpresponse_favicon.h"
+	"../httpresponse_image/httpresponse_image.h"
+	"../httpresponse_home/httpresponse_home.h"
 	<sys/socket.h>
 	<netinet/in.h>
 	<arpa/inet.h>
@@ -16,7 +17,7 @@
 	<time.h>
 	<string.h>
 
-1474248671 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse/httpresponse.cpp
+1474852352 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse/httpresponse.cpp
 	"httpresponse.h"
 	"../httprequest/httprequest.h"
 	<sys/socket.h>
@@ -77,9 +78,9 @@
 
 1474246130 /home/richard/projects/bibleserver/bibleserver/bibleserver/httprequest/httprequest.h
 
-1474245143 /home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse/httpresponse.h
+1474851940 /home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse/httpresponse.h
 
-1474248725 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse_favicon/httpresponse_favicon.cpp
+1474851434 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse_favicon/httpresponse_favicon.cpp
 	"httpresponse_favicon.h"
 	"../httprequest/httprequest.h"
 	<fstream>
@@ -87,4 +88,22 @@
 
 1474245804 /home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse_favicon/httpresponse_favicon.h
 	"../httpresponse/httpresponse.h"
+
+1474849642 /home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse_image/httpresponse_image.h
+	"../httpresponse/httpresponse.h"
+
+1474851411 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse_image/httpresponse_image.cpp
+	"httpresponse_image.h"
+	"../httprequest/httprequest.h"
+	<fstream>
+	<string>
+
+1474852911 /home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse_home/httpresponse_home.h
+	"../httpresponse/httpresponse.h"
+
+1474853027 source:/home/richard/projects/bibleserver/bibleserver/bibleserver/httpresponse_home/httpresponse_home.cpp
+	"httpresponse_home.h"
+	"../httprequest/httprequest.h"
+	<fstream>
+	<string>
 

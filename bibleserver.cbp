@@ -39,8 +39,10 @@
 		<Unit filename="bibleserver/httprequest/httprequest.h" />
 		<Unit filename="bibleserver/httpresponse/httpresponse.cpp" />
 		<Unit filename="bibleserver/httpresponse/httpresponse.h" />
-		<Unit filename="bibleserver/httpresponse_favicon/httpresponse_favicon.cpp" />
-		<Unit filename="bibleserver/httpresponse_favicon/httpresponse_favicon.h" />
+		<Unit filename="bibleserver/httpresponse_home/httpresponse_home.cpp" />
+		<Unit filename="bibleserver/httpresponse_home/httpresponse_home.h" />
+		<Unit filename="bibleserver/httpresponse_image/httpresponse_image.cpp" />
+		<Unit filename="bibleserver/httpresponse_image/httpresponse_image.h" />
 		<Unit filename="bibleserver/httpserver/httpserver.cpp" />
 		<Unit filename="bibleserver/httpserver/httpserver.h" />
 		<Unit filename="bibleserver/httpsession/httpsession.cpp" />
